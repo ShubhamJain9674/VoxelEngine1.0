@@ -1,0 +1,66 @@
+# Visual Studio user-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output directories
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Ww]in32/
+[Aa]RM/
+[Aa]RM64/
+[Oo]ut/
+
+# Compiled object files
+*.obj
+*.o
+*.ilk
+*.pdb
+*.pch
+*.idb
+*.ipch
+*.res
+*.sbr
+*.bsc
+
+# Executables and dynamic libraries
+*.exe
+*.dll
+*.exp
+
+# Visual Studio generated files
+*.aps
+*.clw
+*.ncb
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.VC.opendb
+*.tmp_proj
+*.lastbuildstate
+*.log
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Crash dumps
+*.dmp
+*.stackdump
+
+# Temporary files
+*.bak
+*.swp
+*.swo
+*~
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
