@@ -100,6 +100,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW;$(SolutionDir)\dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y /e /i "$(SolutionDir)source\assets" "$(OutDir)assets"
+xcopy /y /e /i "$(SolutionDir)source\shaders" "$(OutDir)shaders"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -117,6 +125,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW;$(SolutionDir)\dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y /e /i "$(SolutionDir)source\assets" "$(OutDir)assets"
+xcopy /y /e /i "$(SolutionDir)source\shaders" "$(OutDir)shaders"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -132,6 +148,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW;$(SolutionDir)\dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y /e /i "$(SolutionDir)source\assets" "$(OutDir)assets"
+xcopy /y /e /i "$(SolutionDir)source\shaders" "$(OutDir)shaders"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,6 +173,14 @@
       <AdditionalLibraryDirectories>$(SolutionDir)dependencies\GLEW;$(SolutionDir)\dependencies\GLFW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy /y /e /i "$(SolutionDir)source\assets" "$(OutDir)assets"
+xcopy /y /e /i "$(SolutionDir)source\shaders" "$(OutDir)shaders"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>
+      </Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\app.cpp" />

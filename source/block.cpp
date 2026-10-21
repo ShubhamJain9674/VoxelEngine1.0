@@ -1,9 +1,6 @@
 #include "block.h"
 
 
-
-
-
 Voxel::Voxel()
 {
 	glGenVertexArrays(1,&_VAO);
