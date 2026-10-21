@@ -152,10 +152,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\app.cpp" />
+    <ClCompile Include="source\block.cpp" />
     <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\app.h" />
+    <ClInclude Include="source\block.h" />
+    <ClInclude Include="source\time.h" />
     <ClInclude Include="source\utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

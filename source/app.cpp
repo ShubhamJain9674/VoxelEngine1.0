@@ -76,26 +76,51 @@ void App::Run()
 {
     while (!glfwWindowShouldClose(_window))
     {
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.0f, 1.0f, 0.0f, 1.0f);
+        double now = TimeManager::GetTimeS();
+        _deltaTime = now - _lastTime;
+        _lastTime = now;
 
-        glfwSwapBuffers(_window);
+        _timeElapsed += _deltaTime;
 
-        glfwPollEvents();
+        if (_timeElapsed >= FRAME_DELTA)
+        {
+            _timeElapsed -= FRAME_DELTA;
+            Update(FRAME_DELTA);
+        }
+
+        Render();
+
     }
 }
 
+
+
+
+/*DeltaTime in s.*/
+void App::Update(double DeltaTime)
+{
+    glfwPollEvents();
+
+}
+
+
+void App::Render()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+
+
+
+    glfwSwapBuffers(_window);
+}
 
 void App::Cleanup()
 {
     glfwTerminate();
     
-
     // cleanup resources
 }
-
-
-
 
 
 App::~App()

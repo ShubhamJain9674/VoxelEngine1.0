@@ -1,16 +1,14 @@
 #pragma once
 
-#include <GLEW/glew.h>
-#include <GLFW/glfw3.h>
 
-#include <iostream>
 #include "utility.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define APP_NAME "Voxel Engine v-1.0"
 
-
+#define FRAME_RATE 60.0
+#define FRAME_DELTA (1 / FRAME_RATE)
 
 
 
@@ -27,11 +25,16 @@ public:
 
 private:
 
-    void HandleEvents();
+    void Update(double DeltaTime);
+    void Render();
 
 private:
 
 	GLFWwindow* _window{ nullptr };
     
+    // deltatime management.
+    double _deltaTime{ 0.0 };
+    double _lastTime{ 0.0 };
+    double _timeElapsed{ 0.0 };
 
 };

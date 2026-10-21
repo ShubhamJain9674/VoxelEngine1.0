@@ -21,12 +21,21 @@
     <ClCompile Include="source\app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\app.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\utility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
