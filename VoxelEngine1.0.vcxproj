@@ -188,6 +188,7 @@ xcopy /y /e /i "$(SolutionDir)source\shaders" "$(OutDir)shaders"</Command>
     <ClCompile Include="source\filehandling.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\shader.cpp" />
+    <ClCompile Include="source\utility.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\app.h" />

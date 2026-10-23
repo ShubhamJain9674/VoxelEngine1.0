@@ -45,16 +45,16 @@ internal std::string GetShaderType(GLenum shaderType)
 internal uint32_t CreateShader(const char* source,GLenum shaderType)
 {
 
-	uint32_t shader = glCreateShader(shaderType);
+	uint32_t shader = GLCall(glCreateShader(shaderType));
 
-	glShaderSource(shader, 1, &source, NULL);
+	GLCall(glShaderSource(shader, 1, &source, NULL));
 
 
-	glCompileShader(shader);
+	GLCall(glCompileShader(shader));
 
 	int err;
 
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &err);
+	GLCall(glGetShaderiv(shader, GL_COMPILE_STATUS, &err));
 	if (err != GL_TRUE)
 	{
 		int logLength = 0;
@@ -87,15 +87,15 @@ Shader::Shader(const char* vsSource, const char* fsSource)
 	uint32_t vertexShader = CreateShader(vertexShaderSource,GL_VERTEX_SHADER);
 	uint32_t fragmentShader = CreateShader(fragmentShaderSource, GL_FRAGMENT_SHADER);
 
-	_shaderProgram = glCreateProgram();
+	_shaderProgram = GLCall(glCreateProgram());
 
-	glAttachShader(_shaderProgram, vertexShader);
-	glAttachShader(_shaderProgram, fragmentShader);
+	GLCall(glAttachShader(_shaderProgram, vertexShader));
+	GLCall(glAttachShader(_shaderProgram, fragmentShader));
 	
-	glLinkProgram(_shaderProgram);
+	GLCall(glLinkProgram(_shaderProgram));
 
 	int status = 0;
-	glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &status);
+	GLCall(glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &status));
 	if (status != GL_TRUE)
 	{
 		char message[1024];
@@ -104,7 +104,7 @@ Shader::Shader(const char* vsSource, const char* fsSource)
 		return;
 	}
 
-	glValidateProgram(_shaderProgram);
+	GLCall(glValidateProgram(_shaderProgram));
 
 	status = 0;
 
@@ -117,14 +117,20 @@ Shader::Shader(const char* vsSource, const char* fsSource)
 		std::cout << "SHADER VALIDATE ERROR : " << message << std::endl;
 		return;
 	}
+	
+	// cleanup shaders
+	GLCall(glDeleteShader(vertexShader));
+	GLCall(glDeleteShader(fragmentShader));
+}
 
-
-
+Shader::~Shader()
+{
+	GLCall(glDeleteProgram(_shaderProgram));
 }
 
 void Shader::UseShader()
 {
-	glUseProgram(_shaderProgram);
+	GLCall(glUseProgram(_shaderProgram));
 }
 
 

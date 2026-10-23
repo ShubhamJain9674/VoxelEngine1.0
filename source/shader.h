@@ -13,6 +13,7 @@ public:
 		fsSource: FilePath to fragmentShader
 	*/
 	Shader(const char* vsSource,const char* fsSource);
+	~Shader();
 
 	void UseShader();
 

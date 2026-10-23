@@ -8,7 +8,7 @@
 
 internal void FramebufferResizeCallback(GLFWwindow* window, int width, int height)
 {
-    glViewport(0, 0, width, height);
+    GLCall(glViewport(0, 0, width, height));
 }
 
 internal void CloseProgram(GLFWwindow* window)
@@ -63,13 +63,14 @@ bool App::Init()
     int fbwidth, fbheight;
     glfwGetFramebufferSize(_window, &fbwidth, &fbheight);
 
-    glViewport(0, 0,fbwidth,fbheight);
+    GLCall(glViewport(0, 0,fbwidth,fbheight));
 
     // callbacks setup
     glfwSetFramebufferSizeCallback(_window, FramebufferResizeCallback);
 
     glfwSetWindowCloseCallback(_window, CloseProgram);
 
+    glfwSwapInterval(1);
 
     // TEMP
     t_voxel = std::make_unique<Voxel>();
@@ -112,8 +113,8 @@ void App::Update(double DeltaTime)
 
 void App::Render()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 
     if (t_voxel)
     {
