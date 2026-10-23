@@ -62,7 +62,7 @@ void Voxel::DrawVoxel()
 
 	GLCall(glBindVertexArray(_VAO));
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_IBO));
-	GLCall(glDrawElements(GL_TRIANGLES,24, GL_UNSIGNED_INT, 0));
+	GLCall(glDrawElements(GL_TRIANGLES,36, GL_UNSIGNED_INT, 0));
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	GLCall(glBindVertexArray(0));
 

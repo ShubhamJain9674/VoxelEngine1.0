@@ -8,6 +8,7 @@
 // testing
 #include "block.h"
 #include "memory.h"
+#include "camera.h"
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -63,4 +64,8 @@ private:
 
     RenderData _renderData;
 
+    std::unique_ptr<Camera> _camera{nullptr};
+
+
+    float angle = 0.0f;
 };

@@ -126,6 +126,7 @@ Shader::Shader(const char* vsSource, const char* fsSource)
 
 	_u_model_id = GLCall(glGetUniformLocation(_shaderProgram, "u_model"));
 	_u_projection_id = GLCall(glGetUniformLocation(_shaderProgram, "u_projection"));
+	_u_view_id = GLCall(glGetUniformLocation(_shaderProgram, "u_view"));
 }
 
 Shader::~Shader()
@@ -142,7 +143,9 @@ void Shader::UseShader()
 void Shader::UpdateUniformData(const RenderData& data)
 {
 	GLCall(glUniformMatrix4fv(_u_model_id, 1, GL_FALSE, glm::value_ptr(data.model)));
+	GLCall(glUniformMatrix4fv(_u_view_id, 1, GL_FALSE , glm::value_ptr(data.view)));
 	GLCall(glUniformMatrix4fv(_u_projection_id, 1, GL_FALSE, glm::value_ptr(data.projection)));
+
 }
 
 

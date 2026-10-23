@@ -79,7 +79,14 @@ bool App::Init()
 
     t_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
 
-
+    _camera = std::make_unique<Camera>(
+            glm::vec3(0.0f, 0.0f, 0.0f),
+            glm::vec3(0.0f, 1.0f, 0.0f),
+            -90.0f,
+            0.0f,
+            5.0f,
+            0.5f
+        );
 
     return true;
 }
@@ -126,21 +133,43 @@ void App::Render()
     // for each object based on position rotation scale etc appropriate transformation 
     // matrices need to be multiplied.
     _renderData.model = glm::mat4(1.0f);
+    
+    
+    _renderData.model = glm::translate(
+        _renderData.model,
+        glm::vec3(0.0f, 0.0f, -3.0f)
+    );
+
+    angle += 0.1;
+    if (angle > 360.0f)
+        angle = 0.0f;
+
+
+    _renderData.model = glm::rotate(
+        _renderData.model,
+        glm::radians(angle),
+        glm::vec3(0.0f, 1.0f, 0.0f)
+    );
+
 
 
     // needs to be set once 
     // TODO  move this to init 
     // mostly set once . if window adjusted then the projection needs to be updated.
     // learn projection math : https://www.songho.ca/opengl/gl_projectionmatrix.html
-    _renderData.projection = glm::perspective(_fov * toRadians,
+    
+    _renderData.projection = glm::perspective(glm::radians(_fov),
                                     GetAspectRatio(),
                                     _nearClip,
                                     _farClip
                                 );
+    
+    
 
-
+    _renderData.view = _camera->CalculateViewMatrix();
     t_shader->UseShader();
     t_shader->UpdateUniformData(_renderData);
+
 
     if (t_voxel)
     {
@@ -156,7 +185,7 @@ float App::GetAspectRatio()
     int bufferHeight;
 
     glfwGetFramebufferSize(_window, &bufferWidth, &bufferHeight);
-    return (float)bufferWidth / (float)bufferHeight;
+    return ((float)bufferWidth) / ((float)bufferHeight);
 }
 
 void App::Cleanup()

@@ -10,6 +10,7 @@
 struct RenderData {
 
 	glm::mat4 model{ glm::mat4(1.0f) };
+	glm::mat4 view{ glm::mat4(1.0f) };
 	glm::mat4 projection{ glm::mat4(1.0f) };
 
 };
@@ -40,4 +41,5 @@ private:
 	// uniform ids.
 	uint32_t _u_model_id;
 	uint32_t _u_projection_id;
+	uint32_t _u_view_id;
 };
