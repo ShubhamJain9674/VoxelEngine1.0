@@ -2,6 +2,7 @@
 
 #include "utility.h"
 
+
 // testing
 #include "shader.h"
 #include "memory.h"
@@ -22,7 +23,8 @@ struct Block
 };
 
 
-
+// since there will be only one type of block this class is just for encapsulation.
+// only one instance of Voxel should exist.
 class Voxel
 {
 
@@ -33,7 +35,7 @@ public:
 
 	
 	bool Init();
-	void DrawVoxel();
+	void DrawVoxel(Shader* shader);
 
 
 private:
@@ -66,6 +68,5 @@ private:
 		0 , 1, 4, 5    // bottom face.
 	};
 
-	std::unique_ptr<Shader> t_shader{nullptr};
-
+	
 };

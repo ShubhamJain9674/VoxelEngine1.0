@@ -76,6 +76,11 @@ bool App::Init()
     t_voxel = std::make_unique<Voxel>();
     t_voxel->Init();
 
+
+    t_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
+
+
+
     return true;
 }
 
@@ -118,8 +123,7 @@ void App::Render()
 
     if (t_voxel)
     {
-        t_voxel->DrawVoxel();
-
+        t_voxel->DrawVoxel(t_shader.get());
     }
 
     glfwSwapBuffers(_window);

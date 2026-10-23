@@ -44,10 +44,7 @@ bool Voxel::Init()
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
 	GLCall(glBindVertexArray(0));
 
-	// shader init.
-	t_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
-
-
+	
 	return true;
 }
 
@@ -60,12 +57,12 @@ Voxel::~Voxel()
 }
 
 
-void Voxel::DrawVoxel()
+void Voxel::DrawVoxel(Shader* shader)
 {
-	if (!t_shader)
+	if (!shader)
 		return;
 
-	t_shader->UseShader();
+	shader->UseShader();
 
 	GLCall(glBindVertexArray(_VAO));
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_IBO));

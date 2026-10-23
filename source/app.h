@@ -3,6 +3,8 @@
 
 #include "utility.h"
 
+#include <GLM/glm.hpp>
+
 // testing
 #include "block.h"
 #include "memory.h"
@@ -43,5 +45,11 @@ private:
 
     // testing
     std::unique_ptr<Voxel> t_voxel{nullptr};
+    std::unique_ptr<Shader> t_shader{ nullptr };
+
+
+    //glm::mat4 _model_mat{ glm::mat4(1.0f) };
+
+
 
 };

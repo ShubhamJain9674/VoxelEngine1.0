@@ -17,6 +17,8 @@ public:
 
 	void UseShader();
 
+
+
 private:
 
 	std::string _vertexShaderSource;
