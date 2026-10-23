@@ -35,7 +35,7 @@ public:
 
 	
 	bool Init();
-	void DrawVoxel(Shader* shader);
+	void DrawVoxel();
 
 
 private:

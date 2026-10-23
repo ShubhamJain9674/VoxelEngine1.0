@@ -18,6 +18,8 @@
 
 
 
+
+
 class App
 {
 
@@ -29,10 +31,14 @@ public:
     void Run();
     void Cleanup();
 
+
+
 private:
 
     void Update(double DeltaTime);
     void Render();
+
+    float GetAspectRatio();
 
 private:
 
@@ -43,13 +49,18 @@ private:
     double _lastTime{ 0.0 };
     double _timeElapsed{ 0.0 };
 
+    // view 
+  
+    // In degree
+    float _fov{ 45.0f };
+    float _nearClip{ 1.0f };
+    float _farClip{ 100.0f };
+
+
     // testing
     std::unique_ptr<Voxel> t_voxel{nullptr};
     std::unique_ptr<Shader> t_shader{ nullptr };
 
-
-    //glm::mat4 _model_mat{ glm::mat4(1.0f) };
-
-
+    RenderData _renderData;
 
 };

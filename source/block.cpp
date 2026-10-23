@@ -57,12 +57,8 @@ Voxel::~Voxel()
 }
 
 
-void Voxel::DrawVoxel(Shader* shader)
+void Voxel::DrawVoxel()
 {
-	if (!shader)
-		return;
-
-	shader->UseShader();
 
 	GLCall(glBindVertexArray(_VAO));
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,_IBO));

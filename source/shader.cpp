@@ -121,6 +121,11 @@ Shader::Shader(const char* vsSource, const char* fsSource)
 	// cleanup shaders
 	GLCall(glDeleteShader(vertexShader));
 	GLCall(glDeleteShader(fragmentShader));
+
+	// uniform ids.
+
+	_u_model_id = GLCall(glGetUniformLocation(_shaderProgram, "u_model"));
+	_u_projection_id = GLCall(glGetUniformLocation(_shaderProgram, "u_projection"));
 }
 
 Shader::~Shader()
@@ -128,9 +133,16 @@ Shader::~Shader()
 	GLCall(glDeleteProgram(_shaderProgram));
 }
 
+
 void Shader::UseShader()
 {
 	GLCall(glUseProgram(_shaderProgram));
+}
+
+void Shader::UpdateUniformData(const RenderData& data)
+{
+	GLCall(glUniformMatrix4fv(_u_model_id, 1, GL_FALSE, glm::value_ptr(data.model)));
+	GLCall(glUniformMatrix4fv(_u_projection_id, 1, GL_FALSE, glm::value_ptr(data.projection)));
 }
 
 

@@ -121,12 +121,42 @@ void App::Render()
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
     GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 
+
+    // this data needs to be updated by objects for now its set to 1.
+    // for each object based on position rotation scale etc appropriate transformation 
+    // matrices need to be multiplied.
+    _renderData.model = glm::mat4(1.0f);
+
+
+    // needs to be set once 
+    // TODO  move this to init 
+    // mostly set once . if window adjusted then the projection needs to be updated.
+    // learn projection math : https://www.songho.ca/opengl/gl_projectionmatrix.html
+    _renderData.projection = glm::perspective(_fov * toRadians,
+                                    GetAspectRatio(),
+                                    _nearClip,
+                                    _farClip
+                                );
+
+
+    t_shader->UseShader();
+    t_shader->UpdateUniformData(_renderData);
+
     if (t_voxel)
     {
-        t_voxel->DrawVoxel(t_shader.get());
+        t_voxel->DrawVoxel();
     }
 
     glfwSwapBuffers(_window);
+}
+
+float App::GetAspectRatio()
+{
+    int bufferWidth;
+    int bufferHeight;
+
+    glfwGetFramebufferSize(_window, &bufferWidth, &bufferHeight);
+    return (float)bufferWidth / (float)bufferHeight;
 }
 
 void App::Cleanup()

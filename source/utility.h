@@ -11,6 +11,8 @@
 #include <cassert>
 #include <iostream>
 
+const float toRadians = 3.14159265f / 180.0f;
+
 
 #define internal static
 
