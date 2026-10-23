@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{ecdffb16-ce56-4c6f-a5fd-7b6585db89ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\main.cpp">
@@ -22,6 +25,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\filehandling.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -38,5 +47,19 @@
     <ClInclude Include="source\block.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\filehandling.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source\shaders\vertex.shader">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="source\shaders\fragment.shader">
+      <Filter>shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

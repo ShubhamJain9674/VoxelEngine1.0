@@ -3,6 +3,10 @@
 
 #include "utility.h"
 
+// testing
+#include "block.h"
+#include "memory.h"
+
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define APP_NAME "Voxel Engine v-1.0"
@@ -36,5 +40,8 @@ private:
     double _deltaTime{ 0.0 };
     double _lastTime{ 0.0 };
     double _timeElapsed{ 0.0 };
+
+    // testing
+    std::unique_ptr<Voxel> t_voxel{nullptr};
 
 };

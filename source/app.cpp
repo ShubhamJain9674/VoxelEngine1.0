@@ -1,6 +1,8 @@
 #include "app.h"
 
 
+
+
 // TODO : switching to discrete GPU seems to be more work then it seems
 
 
@@ -18,7 +20,6 @@ internal void CloseProgram(GLFWwindow* window)
 
 App::App()
 {
-	
 }
 
 
@@ -69,6 +70,11 @@ bool App::Init()
 
     glfwSetWindowCloseCallback(_window, CloseProgram);
 
+
+    // TEMP
+    t_voxel = std::make_unique<Voxel>();
+    t_voxel->Init();
+
     return true;
 }
 
@@ -109,8 +115,11 @@ void App::Render()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+    if (t_voxel)
+    {
+        t_voxel->DrawVoxel();
 
-
+    }
 
     glfwSwapBuffers(_window);
 }

@@ -2,6 +2,12 @@
 
 #include "utility.h"
 
+// testing
+#include "shader.h"
+#include "memory.h"
+
+
+
 enum class BlockType : uint8_t
 {
 	DIRT,
@@ -16,6 +22,7 @@ struct Block
 };
 
 
+
 class Voxel
 {
 
@@ -24,11 +31,16 @@ public:
 	Voxel();
 	~Voxel();
 
+	
+	bool Init();
+	void DrawVoxel();
+
+
 private:
 	
-	uint32_t _VAO;
-	uint32_t _VBO;
-	uint32_t _IBO;
+	uint32_t _VAO{0};
+	uint32_t _VBO{0};
+	uint32_t _IBO{0};
 
 
 	float _vertices[24] = {
@@ -53,5 +65,7 @@ private:
 		2 , 3, 6, 7,   // top face
 		0 , 1, 4, 5    // bottom face.
 	};
+
+	std::unique_ptr<Shader> t_shader{nullptr};
 
 };
