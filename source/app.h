@@ -38,17 +38,24 @@ public:
 private:
 
     void Update(double DeltaTime);
-    void Render();
-
-    float GetAspectRatio();
-
+    
+    // Input handling.
     static void HandleKeys(GLFWwindow* window,int key,
                            int code,int action,
                            int mode);
 
     static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
 
+
+    // Render
+    void Render();
     void WireFrameRenderHandler();
+
+
+    
+    float GetAspectRatio();
+
+
 
 private:
 

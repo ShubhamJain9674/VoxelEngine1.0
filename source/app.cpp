@@ -40,18 +40,18 @@ void App::HandleKeys(GLFWwindow* window, int key,int code,int action,int mode)
 
 void App::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 {
-    if (App::_mouseFirstMoved)
+    if (_mouseFirstMoved)
     {
-        App::_lastMouseX = xPos;
-        App::_lastMouseY = yPos;
-        App::_mouseFirstMoved = false;
+        _lastMouseX = xPos;
+        _lastMouseY = yPos;
+        _mouseFirstMoved = false;
     }
 
-    App::_mouseXChange = xPos - App::_lastMouseX;
-    App::_mouseYChange = App::_lastMouseY - yPos;
+    _mouseXChange = xPos - _lastMouseX;
+    _mouseYChange = _lastMouseY - yPos;
 
-    App::_lastMouseX = xPos;
-    App::_lastMouseY = yPos;
+    _lastMouseX = xPos;
+    _lastMouseY = yPos;
 }
 
 
@@ -190,7 +190,7 @@ void App::Update(double DeltaTime)
 void App::Render()
 {
     GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
-    GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+    GLCall(glClearColor(0.509f, 0.784f, 0.898f, 1.0f));
 
 
     // this data needs to be updated by objects for now its set to 1.
