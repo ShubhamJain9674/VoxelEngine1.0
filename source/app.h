@@ -48,6 +48,8 @@ private:
 
     static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
 
+    void WireFrameRenderHandler();
+
 private:
 
 	GLFWwindow* _window{ nullptr };
@@ -57,12 +59,16 @@ private:
     double _lastTime{ 0.0 };
     double _timeElapsed{ 0.0 };
 
-    // view 
+    // rendering : view 
   
     // In degree
     float _fov{ 45.0f };
     float _nearClip{ 1.0f };
     float _farClip{ 100.0f };
+
+    // rendering : debug
+    bool _wireframe_render{ false };
+    bool _wireframe_trigger_press{ true };
 
 
     // testing
@@ -73,10 +79,12 @@ private:
 
     std::unique_ptr<Camera> _camera{nullptr};
 
+    
 
-    float angle{ 0.0f };
 
     // window Management : input
+    // this assumes that there will be only one window for the application
+    // that is the game window.
     inline static bool _keys[1024] = {};
 
     inline static bool _mouseFirstMoved = true;

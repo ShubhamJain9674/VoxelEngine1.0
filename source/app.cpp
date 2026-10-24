@@ -55,6 +55,8 @@ void App::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 }
 
 
+
+
 App::App()
 {
 }
@@ -95,6 +97,12 @@ bool App::Init()
 
     std::cout << "GLEW version : " << glewGetString(GLEW_VERSION)
         << std::endl;
+
+    glfwSetInputMode(
+        _window,
+        GLFW_CURSOR,
+        GLFW_CURSOR_DISABLED
+    );
 
     // framebuffer
     int fbwidth, fbheight;
@@ -174,9 +182,8 @@ void App::Update(double DeltaTime)
 
     _camera->MouseControl(GetMouseXDelta(),GetMouseYDelta());
     _camera->KeyControl(_keys, DeltaTime);
-    
 
-
+    WireFrameRenderHandler();
 }
 
 
@@ -196,22 +203,7 @@ void App::Render()
         _renderData.model,
         glm::vec3(0.0f, 0.0f, -3.0f)
     );
-
-    angle += 0.1;
-    if (angle > 360.0f)
-        angle = 0.0f;
-
-
-    //_renderData.model = glm::rotate(
-    //    _renderData.model,
-    //    glm::radians(angle),
-    //    glm::vec3(0.0f, 1.0f, 0.0f)
-    //);
-
-
-
-    
-    
+   
 
     _renderData.view = _camera->CalculateViewMatrix();
     t_shader->UseShader();
@@ -256,6 +248,26 @@ float App::GetMouseYDelta()
     return temp;
 }
 
+void App::WireFrameRenderHandler()
+{
+    
+    if (_keys[GLFW_KEY_F5] && _wireframe_trigger_press)
+    {
+        _wireframe_trigger_press = false;
+        if (!_wireframe_render)
+        {
+            GLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_LINE));
+        }
+        else
+        {
+            GLCall(glPolygonMode(GL_FRONT_AND_BACK, GL_FILL));
+        }
+        _wireframe_render = !_wireframe_render;
+    }
+    else if(!_keys[GLFW_KEY_F5]){
+        _wireframe_trigger_press = true;
+    }
+}
 
 App::~App()
 {
