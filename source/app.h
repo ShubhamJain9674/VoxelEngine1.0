@@ -32,7 +32,8 @@ public:
     void Run();
     void Cleanup();
 
-
+    static float GetMouseXDelta();
+    static float GetMouseYDelta();
 
 private:
 
@@ -40,6 +41,12 @@ private:
     void Render();
 
     float GetAspectRatio();
+
+    static void HandleKeys(GLFWwindow* window,int key,
+                           int code,int action,
+                           int mode);
+
+    static void HandleMouse(GLFWwindow* window, double xPos, double yPos);
 
 private:
 
@@ -67,5 +74,17 @@ private:
     std::unique_ptr<Camera> _camera{nullptr};
 
 
-    float angle = 0.0f;
+    float angle{ 0.0f };
+
+    // window Management : input
+    inline static bool _keys[1024] = {};
+
+    inline static bool _mouseFirstMoved = true;
+
+    inline static float _lastMouseX = 0.0f;
+    inline static float _lastMouseY = 0.0f;
+
+    inline static float _mouseXChange = 0.0f;
+    inline static float _mouseYChange = 0.0f;
+
 };

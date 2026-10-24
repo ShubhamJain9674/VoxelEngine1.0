@@ -17,6 +17,9 @@ public:
 		float startTurnSpeed);
 
 
+	void MouseControl(float xChange, float yChange);
+	void KeyControl(bool* keys, float DeltaTime);
+
 	glm::mat4 CalculateViewMatrix();
 
 	glm::vec3 GetCameraPosition();
@@ -37,4 +40,5 @@ private:
 
 	float _moveSpeed;
 	float _turnSpeed;
+
 };

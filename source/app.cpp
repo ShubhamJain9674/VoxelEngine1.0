@@ -18,6 +18,43 @@ internal void CloseProgram(GLFWwindow* window)
 }
 
 
+void App::HandleKeys(GLFWwindow* window, int key,int code,int action,int mode)
+{
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+    {
+        CloseProgram(window);
+    }
+
+    if (key >= 0 && key <= 1024)
+    {
+        if (action == GLFW_PRESS)
+        {
+            App::_keys[key] = true;
+        }
+        else if (action == GLFW_RELEASE)
+        {
+            App::_keys[key] = false;
+        }
+    }
+}
+
+void App::HandleMouse(GLFWwindow* window, double xPos, double yPos)
+{
+    if (App::_mouseFirstMoved)
+    {
+        App::_lastMouseX = xPos;
+        App::_lastMouseY = yPos;
+        App::_mouseFirstMoved = false;
+    }
+
+    App::_mouseXChange = xPos - App::_lastMouseX;
+    App::_mouseYChange = App::_lastMouseY - yPos;
+
+    App::_lastMouseX = xPos;
+    App::_lastMouseY = yPos;
+}
+
+
 App::App()
 {
 }
@@ -70,6 +107,10 @@ bool App::Init()
 
     glfwSetWindowCloseCallback(_window, CloseProgram);
 
+    glfwSetCursorPosCallback(_window, HandleMouse);
+
+    glfwSetKeyCallback(_window, HandleKeys);
+
     glfwSwapInterval(1);
 
     // TEMP
@@ -87,6 +128,17 @@ bool App::Init()
             5.0f,
             0.5f
         );
+
+    // projection init.
+    
+    // learn projection math : https://www.songho.ca/opengl/gl_projectionmatrix.html
+    _renderData.projection = glm::perspective(glm::radians(_fov),
+        GetAspectRatio(),
+        _nearClip,
+        _farClip
+    );
+
+
 
     return true;
 }
@@ -120,6 +172,11 @@ void App::Update(double DeltaTime)
 {
     glfwPollEvents();
 
+    _camera->MouseControl(GetMouseXDelta(),GetMouseYDelta());
+    _camera->KeyControl(_keys, DeltaTime);
+    
+
+
 }
 
 
@@ -145,24 +202,14 @@ void App::Render()
         angle = 0.0f;
 
 
-    _renderData.model = glm::rotate(
-        _renderData.model,
-        glm::radians(angle),
-        glm::vec3(0.0f, 1.0f, 0.0f)
-    );
+    //_renderData.model = glm::rotate(
+    //    _renderData.model,
+    //    glm::radians(angle),
+    //    glm::vec3(0.0f, 1.0f, 0.0f)
+    //);
 
 
 
-    // needs to be set once 
-    // TODO  move this to init 
-    // mostly set once . if window adjusted then the projection needs to be updated.
-    // learn projection math : https://www.songho.ca/opengl/gl_projectionmatrix.html
-    
-    _renderData.projection = glm::perspective(glm::radians(_fov),
-                                    GetAspectRatio(),
-                                    _nearClip,
-                                    _farClip
-                                );
     
     
 
@@ -193,6 +240,20 @@ void App::Cleanup()
     glfwTerminate();
     
     // cleanup resources
+}
+
+float App::GetMouseXDelta()
+{
+    float temp = _mouseXChange;
+    _mouseXChange = 0.0f;
+    return temp;
+}
+
+float App::GetMouseYDelta()
+{
+    float temp = _mouseYChange;
+    _mouseYChange = 0.0f;
+    return temp;
 }
 
 
