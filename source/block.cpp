@@ -34,11 +34,21 @@ bool Voxel::Init()
 		3,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(_vertices[0]) * 3,
+		sizeof(_vertices[0]) * 5,
 		0
 	));
-
 	GLCall(glEnableVertexAttribArray(0));
+
+	GLCall(glVertexAttribPointer(
+		1,
+		2,
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(_vertices[0]) * 5,
+		(void*)(3 * sizeof(_vertices[0]))
+	));
+
+	GLCall(glEnableVertexAttribArray(1));
 
 	GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
@@ -68,3 +78,49 @@ void Voxel::DrawVoxel()
 
 	GLCall(glUseProgram(0));
 }
+
+
+
+
+
+constexpr size_t Index(BlockType type)
+{
+	return static_cast<size_t>(type);
+}
+
+BlockDataManager::BlockDataManager()
+	:_textures{}
+{
+	
+	// temp 
+	// later write a conf file parser and define locations/filename there
+	
+	// or dont be lazy and learn and create an atlas map.
+	_textures[Index(BlockType::GRASS)].bottom = std::make_unique<Texture>("assets/textures/dirt.png");
+	_textures[Index(BlockType::GRASS)].top = std::make_unique<Texture>("assets/textures/grass_block_top.png");
+	_textures[Index(BlockType::GRASS)].side = std::make_unique<Texture>("assets/textures/grass_block_side.png");
+
+
+	_textures[Index(BlockType::GRASS)].bottom->Load();
+	_textures[Index(BlockType::GRASS)].top->Load();
+	_textures[Index(BlockType::GRASS)].side->Load();
+
+
+}
+
+BlockDataManager::~BlockDataManager()
+{
+}
+
+const BlockTexture& BlockDataManager::GetTextures(BlockType type)
+{
+
+	if (type == BlockType::COUNT)
+	{
+		// default texture
+		return _textures[0];
+	}
+
+	return _textures[Index(type)];
+}
+

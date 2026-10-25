@@ -59,6 +59,7 @@ void App::HandleMouse(GLFWwindow* window, double xPos, double yPos)
 
 App::App()
 {
+
 }
 
 
@@ -127,6 +128,8 @@ bool App::Init()
 
 
     t_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
+    t_blockDataManager = std::make_unique<BlockDataManager>();
+
 
     _camera = std::make_unique<Camera>(
             glm::vec3(0.0f, 0.0f, 0.0f),
@@ -138,6 +141,12 @@ bool App::Init()
         );
 
     // projection init.
+
+    GLCall(glEnable(GL_DEPTH_TEST));
+    GLCall(glEnable(GL_CULL_FACE));
+
+    GLCall(glFrontFace(GL_CCW));
+    GLCall(glCullFace(GL_BACK));
     
     // learn projection math : https://www.songho.ca/opengl/gl_projectionmatrix.html
     _renderData.projection = glm::perspective(glm::radians(_fov),
@@ -173,8 +182,6 @@ void App::Run()
 }
 
 
-
-
 /*DeltaTime in s.*/
 void App::Update(double DeltaTime)
 {
@@ -206,7 +213,14 @@ void App::Render()
    
 
     _renderData.view = _camera->CalculateViewMatrix();
+
+
     t_shader->UseShader();
+
+    auto& texture = t_blockDataManager->GetTextures(BlockType::GRASS);
+    texture.side->Use();
+
+
     t_shader->UpdateUniformData(_renderData);
 
 

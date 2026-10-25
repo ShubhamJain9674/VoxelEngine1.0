@@ -81,6 +81,8 @@ private:
     // testing
     std::unique_ptr<Voxel> t_voxel{nullptr};
     std::unique_ptr<Shader> t_shader{ nullptr };
+    std::unique_ptr<BlockDataManager> t_blockDataManager{nullptr};
+
 
     RenderData _renderData;
 

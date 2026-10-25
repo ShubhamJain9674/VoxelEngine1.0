@@ -4,6 +4,10 @@
 #include <filesystem>
 #include <windows.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <STB/stb_image.h>
+
+namespace fs = std::filesystem;
 
 std::string FileManager::GetExecutablePath() {
 
@@ -45,7 +49,7 @@ std::string FileManager::GetExecutablePath() {
 
 bool FileManager::ReadShaderFile(const char* source, std::string& content)
 {
-    namespace fs = std::filesystem;
+    
 
     fs::path exePath = fs::absolute(GetExecutablePath()).parent_path();
     
@@ -67,4 +71,38 @@ bool FileManager::ReadShaderFile(const char* source, std::string& content)
     }
     
     return true;
+}
+
+/*
+*loads a single texture file.
+* Doesnt manage atlas because no time right now
+* returns NULL if invalid.
+*/
+unsigned char* FileManager::LoadTexture(const char* source, int* width, int* height, int* bitDepth, int desiredNoOfChannels)
+{
+    fs::path filepath = fs::absolute(GetExecutablePath()).parent_path();
+    filepath = filepath / source;
+
+
+    const std::string pathString = filepath.string();
+
+
+    unsigned char* texData = stbi_load(pathString.c_str(), width, height, bitDepth, desiredNoOfChannels);
+
+    if (!texData)
+    {
+        std::cout << "Failed to find Texture file : "
+                  << source  << std::endl;
+    }
+
+    return texData;
+}
+
+
+void FileManager::FreeTexture(unsigned char* source)
+{
+    if (source)
+    {
+        stbi_image_free(source);
+    }
 }

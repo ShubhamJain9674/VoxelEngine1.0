@@ -6,13 +6,13 @@
 // testing
 #include "shader.h"
 #include "memory.h"
-
+#include "texture.h"
 
 
 enum class BlockType : uint8_t
 {
-	DIRT,
-	GRASS
+	GRASS,
+	COUNT
 };
 
 struct Block
@@ -21,6 +21,21 @@ struct Block
 	// position
 	// other attrib
 };
+
+
+class BlockDataManager
+{
+public:
+	BlockDataManager();
+	~BlockDataManager();
+
+	const BlockTexture& GetTextures(BlockType type);
+
+private:
+	BlockTexture _textures[static_cast<size_t>(BlockType::COUNT)];
+
+};
+
 
 
 // since there will be only one type of block this class is just for encapsulation.
@@ -45,27 +60,27 @@ private:
 	uint32_t _IBO{0};
 
 
-	float _vertices[24] = {
-	//   x      y      z
-		-0.5f, -0.5f,  0.0f,
-		 0.5f, -0.5f,  0.0f,
-		-0.5f,  0.5f,  0.0f,
-		 0.5f,  0.5f,  0.0f,
+	float _vertices[40] = {
+	//   x      y      z      u       v
+		-0.5f, -0.5f,  0.0f,  0.0f,  1.0f, 
+		 0.5f, -0.5f,  0.0f,  1.0f,  1.0f,
+		-0.5f,  0.5f,  0.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
 
-		-0.5f, -0.5f,  1.0f,
-		 0.5f, -0.5f,  1.0f,
-		-0.5f,  0.5f,  1.0f,
-		 0.5f,  0.5f,  1.0f
+		-0.5f, -0.5f,  1.0f,  0.0f,  1.0f, 
+		 0.5f, -0.5f,  1.0f,  1.0f,  1.0f, 
+		-0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  1.0f,  1.0f,  0.0f
 	};
 
 	unsigned int _indices[36] =
 	{
-		0 , 1, 2,   1, 3, 2,   //front face
-		4 , 6, 5,   5, 6, 7,   // middle left
-		0 , 2, 4,   4, 2, 6,   // back face
-		1 , 5, 3,   5, 7, 3,   // middle right
-		2 , 3, 6,   3, 7, 6,   // top face
-		0 , 1, 4,   1, 4, 5    // bottom face.
+		0 , 2, 1,   1, 2, 3,   //front face
+		4 , 5, 6,   5, 7, 6,   // middle left
+		0 , 4, 2,   2, 4, 6,   // back face
+		1 , 3, 5,   3, 7, 5,   // middle right
+		2 , 6, 3,   3, 6, 7,   // top face
+		0 , 1, 4,   1, 5, 4    // bottom face.
 	};
 
 	

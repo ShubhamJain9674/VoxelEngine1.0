@@ -39,6 +39,9 @@
     <ClCompile Include="source\camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\app.h">
@@ -62,6 +65,9 @@
     <ClInclude Include="source\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="source\shaders\vertex.shader">
@@ -69,6 +75,9 @@
     </None>
     <None Include="source\shaders\fragment.shader">
       <Filter>shaders</Filter>
+    </None>
+    <None Include="source\assets\texture.conf">
+      <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
 </Project>
