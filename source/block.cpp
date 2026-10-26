@@ -106,10 +106,35 @@ BlockDataManager::BlockDataManager()
 	_textures[Index(BlockType::GRASS)].side->Load();
 
 
+	_voxel = std::make_unique<Voxel>();
+	_voxel->Init();
+
+	_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
+
 }
 
 BlockDataManager::~BlockDataManager()
 {
+}
+
+void BlockDataManager::DrawBlock(RenderData& renderData,BlockType type, glm::vec3 pos)
+{
+	renderData.model = glm::translate(
+		renderData.model,
+		pos
+	);
+
+	_shader->UseShader();
+
+	auto& texture = GetTextures(type);
+	texture.side->Use();
+
+	_shader->UpdateUniformData(renderData);
+
+	if (_voxel)
+	{
+		_voxel->DrawVoxel();
+	}
 }
 
 const BlockTexture& BlockDataManager::GetTextures(BlockType type)

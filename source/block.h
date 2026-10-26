@@ -9,35 +9,6 @@
 #include "texture.h"
 
 
-enum class BlockType : uint8_t
-{
-	GRASS,
-	COUNT
-};
-
-struct Block
-{
-	BlockType type;
-	// position
-	// other attrib
-};
-
-
-class BlockDataManager
-{
-public:
-	BlockDataManager();
-	~BlockDataManager();
-
-	const BlockTexture& GetTextures(BlockType type);
-
-private:
-	BlockTexture _textures[static_cast<size_t>(BlockType::COUNT)];
-
-};
-
-
-
 // since there will be only one type of block this class is just for encapsulation.
 // only one instance of Voxel should exist.
 class Voxel
@@ -84,4 +55,37 @@ private:
 	};
 
 	
+};
+
+
+enum class BlockType : uint8_t
+{
+	GRASS,
+	COUNT
+};
+
+struct Block
+{
+	BlockType type;
+	// other attrib
+};
+
+
+class BlockDataManager
+{
+public:
+	BlockDataManager();
+	~BlockDataManager();
+
+	void DrawBlock(RenderData& renderData,BlockType type, glm::vec3 pos);
+
+	const BlockTexture& GetTextures(BlockType type);
+
+private:
+	BlockTexture _textures[static_cast<size_t>(BlockType::COUNT)];
+
+
+	std::unique_ptr<Voxel> _voxel{ nullptr };
+	std::unique_ptr<Shader> _shader{ nullptr };
+
 };

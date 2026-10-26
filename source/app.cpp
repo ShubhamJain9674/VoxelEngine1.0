@@ -123,11 +123,6 @@ bool App::Init()
     glfwSwapInterval(1);
 
     // TEMP
-    t_voxel = std::make_unique<Voxel>();
-    t_voxel->Init();
-
-
-    t_shader = std::make_unique<Shader>("shaders/vertex.shader", "shaders/fragment.shader");
     t_blockDataManager = std::make_unique<BlockDataManager>();
 
 
@@ -204,30 +199,10 @@ void App::Render()
     // for each object based on position rotation scale etc appropriate transformation 
     // matrices need to be multiplied.
     _renderData.model = glm::mat4(1.0f);
-    
-    
-    _renderData.model = glm::translate(
-        _renderData.model,
-        glm::vec3(0.0f, 0.0f, -3.0f)
-    );
-   
-
     _renderData.view = _camera->CalculateViewMatrix();
 
 
-    t_shader->UseShader();
-
-    auto& texture = t_blockDataManager->GetTextures(BlockType::GRASS);
-    texture.side->Use();
-
-
-    t_shader->UpdateUniformData(_renderData);
-
-
-    if (t_voxel)
-    {
-        t_voxel->DrawVoxel();
-    }
+    t_blockDataManager->DrawBlock(_renderData, BlockType::GRASS, glm::vec3(0.0f, 0.0f, -3.0f));
 
     glfwSwapBuffers(_window);
 }
